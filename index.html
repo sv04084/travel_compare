@@ -4,156 +4,277 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>여행상품 가격비교</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Pretendard:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg: #f5f3ef;
-  --surface: #ffffff;
-  --ink: #1c1917;
-  --ink2: #78716c;
-  --ink3: #a8a29e;
-  --accent: #dc4f2a;
-  --accent2: #f5e6e0;
-  --green: #15803d;
-  --green-bg: #f0fdf4;
-  --yellow: #a16207;
-  --yellow-bg: #fefce8;
-  --red: #b91c1c;
-  --red-bg: #fff1f2;
-  --border: #e7e5e4;
-  --radius: 10px;
+  --bg:          #F7F7F8;
+  --surface:     #FFFFFF;
+  --surface2:    #F4F4F5;
+  --ink:         #09090B;
+  --ink2:        #52525B;
+  --ink3:        #A1A1AA;
+  --border:      #E4E4E7;
+  --border2:     #D4D4D8;
+  --accent:      #E85427;
+  --accent-dim:  #FFF1EE;
+  --green:       #16A34A;
+  --green-bg:    #F0FDF4;
+  --green-border:#BBF7D0;
+  --red:         #DC2626;
+  --red-bg:      #FEF2F2;
+  --red-border:  #FECACA;
+  --yellow:      #D97706;
+  --yellow-bg:   #FFFBEB;
+  --radius-sm:   6px;
+  --radius:      10px;
+  --radius-lg:   14px;
+  --shadow-xs:   0 1px 2px rgba(0,0,0,.05);
+  --shadow-sm:   0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.04);
+  --shadow-md:   0 4px 12px rgba(0,0,0,.07), 0 2px 4px rgba(0,0,0,.04);
 }
 
 body {
-  font-family: 'Pretendard', sans-serif;
+  font-family: 'Pretendard', -apple-system, sans-serif;
   background: var(--bg);
   color: var(--ink);
   min-height: 100vh;
   font-size: 14px;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* ── 헤더 ── */
-header {
-  background: var(--ink);
-  padding: 2.5rem 2rem 2rem;
+/* ── 상단 바 ── */
+.topbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.topbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.logo-icon {
+  width: 28px; height: 28px;
+  background: var(--accent);
+  border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+}
+.logo-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -.2px;
+}
+.topbar-sep {
+  width: 1px;
+  height: 16px;
+  background: var(--border);
+  margin: 0 4px;
+}
+.topbar-sub {
+  font-size: 12px;
+  color: var(--ink3);
+}
+
+/* ── 히어로 영역 ── */
+.hero {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 3.5rem 1.5rem 2rem;
   text-align: center;
 }
-header .eyebrow {
-  font-size: 11px;
-  letter-spacing: 3px;
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 500;
   color: var(--accent);
-  text-transform: uppercase;
-  margin-bottom: .5rem;
+  background: var(--accent-dim);
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: .3px;
+  margin-bottom: 1.2rem;
 }
-header h1 {
-  font-family: 'DM Serif Display', serif;
-  font-size: 2.2rem;
-  color: #fafaf9;
-  font-weight: 400;
-  letter-spacing: -.5px;
+.hero h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -.6px;
+  line-height: 1.25;
+  margin-bottom: .6rem;
 }
-header p {
-  font-size: 13px;
-  color: #a8a29e;
-  margin-top: .4rem;
+.hero p {
+  font-size: 14px;
+  color: var(--ink2);
   font-weight: 300;
+  line-height: 1.7;
 }
 
-/* ── 검색 ── */
-.search-wrap {
-  max-width: 720px;
-  margin: 2rem auto 0;
+/* ── 검색 카드 ── */
+.search-card {
+  max-width: 680px;
+  margin: 0 auto 1rem;
   padding: 0 1.5rem;
 }
-.search-label {
+.search-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 1.2rem 1.4rem;
+}
+.field-label {
   font-size: 11px;
-  letter-spacing: 2px;
-  color: var(--ink2);
+  font-weight: 600;
+  color: var(--ink3);
+  letter-spacing: 1px;
   text-transform: uppercase;
   display: block;
-  margin-bottom: .5rem;
+  margin-bottom: 6px;
 }
 .search-row {
   display: flex;
-  background: var(--surface);
+  gap: 8px;
+  align-items: stretch;
+}
+.search-input {
+  flex: 1;
   border: 1.5px solid var(--border);
   border-radius: var(--radius);
-  overflow: hidden;
-  transition: border-color .2s;
-  box-shadow: 0 1px 4px rgba(0,0,0,.06);
-}
-.search-row:focus-within { border-color: var(--accent); }
-.search-row input {
-  flex: 1;
-  border: none;
-  outline: none;
-  padding: .85rem 1.1rem;
+  padding: .75rem 1rem;
   font-size: 14px;
   font-family: inherit;
   color: var(--ink);
-  background: transparent;
+  background: var(--bg);
+  outline: none;
+  transition: border-color .15s, box-shadow .15s;
 }
-.search-row input::placeholder { color: var(--ink3); font-size: 13px; }
-.search-row button {
+.search-input::placeholder { color: var(--ink3); font-size: 13px; }
+.search-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(232,84,39,.08);
+  background: var(--surface);
+}
+.btn-primary {
   background: var(--accent);
   color: #fff;
   border: none;
-  padding: 0 1.6rem;
+  padding: 0 1.4rem;
+  border-radius: var(--radius);
   font-size: 13px;
   font-weight: 600;
   font-family: inherit;
   cursor: pointer;
-  transition: background .15s;
+  transition: background .15s, transform .1s;
   white-space: nowrap;
-  letter-spacing: .3px;
+  letter-spacing: .2px;
 }
-.search-row button:hover { background: #c0411f; }
-.search-row button:disabled { background: #ccc; cursor: not-allowed; }
+.btn-primary:hover { background: #d14920; }
+.btn-primary:active { transform: scale(.98); }
+.btn-primary:disabled { background: var(--border2); cursor: not-allowed; color: var(--ink3); }
 
-.search-examples {
-  margin-top: .6rem;
+.divider-row {
+  height: 1px;
+  background: var(--border);
+  margin: 1rem 0;
+}
+.price-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.price-input-wrap {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg);
+  padding: .6rem .9rem;
+  gap: 5px;
+  transition: border-color .15s, box-shadow .15s;
+}
+.price-input-wrap:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(232,84,39,.08);
+  background: var(--surface);
+}
+.price-prefix { font-size: 13px; color: var(--ink2); font-weight: 500; }
+#hanatourPrice {
+  border: none; outline: none;
+  font-family: inherit; font-size: 13px;
+  width: 120px; color: var(--ink);
+  background: transparent;
+}
+#hanatourPrice::placeholder { color: var(--ink3); }
+.price-hint {
   font-size: 12px;
-  color: var(--ink2);
+  color: var(--ink3);
+  flex: 1;
 }
-.search-examples span {
-  display: inline-block;
-  background: var(--accent2);
-  color: var(--accent);
-  padding: 2px 10px;
-  border-radius: 20px;
-  margin: 3px 3px 0 0;
-  cursor: pointer;
+
+/* 예시 칩 */
+.chips {
+  max-width: 680px;
+  margin: 0 auto .5rem;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.chips-label {
+  font-size: 11px;
+  color: var(--ink3);
+  margin-right: 2px;
+}
+.chip {
   font-size: 11.5px;
-  transition: background .15s;
+  color: var(--ink2);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 3px 11px;
+  cursor: pointer;
+  transition: border-color .15s, color .15s;
 }
-.search-examples span:hover { background: #eecdc1; }
+.chip:hover { border-color: var(--accent); color: var(--accent); }
 
 /* ── 분석 태그 ── */
 .analyzed-wrap {
-  max-width: 720px;
-  margin: 1.4rem auto 0;
+  max-width: 680px;
+  margin: 1rem auto 0;
   padding: 0 1.5rem;
 }
-.analyzed-box {
+.analyzed-inner {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  padding: .7rem 1rem;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: .9rem 1.2rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  align-items: center;
 }
-.analyzed-box .label {
-  font-size: 11px;
-  color: var(--ink2);
+.analyzed-label {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--ink3);
   letter-spacing: 1px;
   text-transform: uppercase;
-  margin-right: 4px;
+  margin-right: 2px;
 }
-.tag {
+.pill {
   display: inline-flex;
   align-items: center;
   gap: 4px;
@@ -162,33 +283,23 @@ header p {
   font-size: 12px;
   font-weight: 500;
 }
-.tag.green { background: var(--green-bg); color: var(--green); }
-.tag.yellow { background: var(--yellow-bg); color: var(--yellow); }
-.tag.gray { background: #f5f5f4; color: var(--ink2); }
-.tag.red { background: var(--accent2); color: var(--accent); }
+.pill-green  { background: var(--green-bg);  color: var(--green);  border: 1px solid var(--green-border); }
+.pill-orange { background: var(--accent-dim); color: var(--accent); border: 1px solid #FFCDB8; }
+.pill-yellow { background: var(--yellow-bg);  color: var(--yellow); border: 1px solid #FDE68A; }
+.pill-gray   { background: var(--surface2);   color: var(--ink2);   border: 1px solid var(--border); }
 
-/* ── 결과 ── */
+/* ── 결과 래퍼 ── */
 .results-wrap {
-  max-width: 720px;
-  margin: 1.5rem auto 3rem;
+  max-width: 680px;
+  margin: 1.2rem auto 4rem;
   padding: 0 1.5rem;
 }
-.section-head {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 1rem;
-  font-size: 12px;
-  color: var(--ink2);
-  letter-spacing: .5px;
-}
-.section-head .line { flex: 1; height: 1px; background: var(--border); }
 
 /* 통계 카드 */
-.stats-row {
+.stats-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  gap: 8px;
   margin-bottom: 1.4rem;
 }
 .stat-card {
@@ -196,46 +307,70 @@ header p {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: .9rem 1rem;
-  text-align: center;
+  box-shadow: var(--shadow-xs);
 }
-.stat-card .s-label {
-  font-size: 11px;
-  color: var(--ink2);
-  letter-spacing: 1px;
+.stat-label {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--ink3);
+  letter-spacing: .8px;
   text-transform: uppercase;
-  margin-bottom: .3rem;
+  margin-bottom: 5px;
 }
-.stat-card .s-value {
-  font-family: 'DM Serif Display', serif;
-  font-size: 1.3rem;
+.stat-value {
+  font-size: 1.25rem;
+  font-weight: 700;
   color: var(--ink);
+  letter-spacing: -.4px;
 }
-.stat-card.highlight .s-value { color: var(--accent); }
+.stat-card.accent-card .stat-value { color: var(--accent); }
+.stat-card.green-card  .stat-value { color: var(--green); }
+.stat-card.red-card    .stat-value { color: var(--red); }
+
+/* 등급 구분선 */
+.grade-section { margin-bottom: 1.6rem; }
+.grade-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: .6rem;
+}
+.grade-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  letter-spacing: .3px;
+}
+.badge-green  { background: var(--green-bg);  color: var(--green);  border: 1px solid var(--green-border); }
+.badge-yellow { background: var(--yellow-bg);  color: var(--yellow); border: 1px solid #FDE68A; }
+.badge-red    { background: var(--red-bg);    color: var(--red);    border: 1px solid var(--red-border); }
+.grade-line { flex: 1; height: 1px; background: var(--border); }
 
 /* 상품 카드 */
 .product-card {
+  display: grid;
+  grid-template-columns: 28px 72px 1fr auto;
+  gap: 12px;
+  align-items: center;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 1rem 1.2rem;
-  margin-bottom: .7rem;
-  display: grid;
-  grid-template-columns: 22px 68px 1fr auto;
-  gap: .9rem;
-  align-items: center;
+  margin-bottom: 6px;
   text-decoration: none;
   color: inherit;
-  transition: border-color .2s, box-shadow .2s, transform .15s;
-  cursor: pointer;
-  animation: up .25s ease both;
+  box-shadow: var(--shadow-xs);
+  transition: border-color .15s, box-shadow .15s, transform .12s;
+  animation: fadeUp .2s ease both;
 }
 .product-card:hover {
   border-color: var(--accent);
-  box-shadow: 0 3px 12px rgba(220,79,42,.1);
+  box-shadow: var(--shadow-md);
   transform: translateY(-1px);
 }
-@keyframes up {
-  from { opacity: 0; transform: translateY(6px); }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 .product-card:nth-child(2) { animation-delay: .04s; }
@@ -243,38 +378,47 @@ header p {
 .product-card:nth-child(4) { animation-delay: .12s; }
 .product-card:nth-child(5) { animation-delay: .16s; }
 
-.rank-num {
+.rank {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--surface2);
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--ink3);
-  text-align: center;
+  display: flex; align-items: center; justify-content: center;
 }
+.rank-1 { background: #FEF3C7; color: #B45309; }
+
+.thumb-wrap { position: relative; }
 .thumb {
-  width: 68px; height: 54px;
+  width: 72px; height: 56px;
   object-fit: cover;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--border);
-  background: var(--bg);
+  display: block;
 }
 .thumb-placeholder {
-  width: 68px; height: 54px;
-  border-radius: 6px;
-  background: var(--accent2);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.3rem;
+  width: 72px; height: 56px;
+  border-radius: var(--radius-sm);
+  background: var(--surface2);
   border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem;
+  color: var(--ink3);
 }
-.card-info { overflow: hidden; }
+
+.card-body { overflow: hidden; min-width: 0; }
 .card-mall {
   font-size: 10px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
+  font-weight: 700;
   color: var(--accent);
-  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
   margin-bottom: 3px;
 }
 .card-title {
   font-size: 13px;
+  font-weight: 400;
   line-height: 1.5;
   color: var(--ink);
   display: -webkit-box;
@@ -282,155 +426,186 @@ header p {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.sim-badge {
-  font-size: 11px;
-  margin-top: 4px;
-  display: inline-block;
+.sim-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 5px;
 }
-.card-price-col { text-align: right; white-space: nowrap; }
-.card-price {
-  font-family: 'DM Serif Display', serif;
-  font-size: 1.2rem;
+.sim-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.dot-green  { background: var(--green); }
+.dot-yellow { background: var(--yellow); }
+.dot-red    { background: #F87171; }
+.sim-text { font-size: 11px; color: var(--ink3); }
+
+.card-price-col { text-align: right; white-space: nowrap; min-width: 110px; }
+.price-main {
+  font-size: 1.15rem;
+  font-weight: 700;
   color: var(--ink);
+  letter-spacing: -.4px;
 }
-.card-price-label { font-size: 11px; color: var(--ink2); margin-top: 1px; }
-.cheapest-tag {
+.price-sub {
+  font-size: 10.5px;
+  color: var(--ink3);
+  margin-top: 1px;
+}
+.best-tag {
   display: inline-block;
   background: var(--green-bg);
   color: var(--green);
+  border: 1px solid var(--green-border);
   font-size: 10px;
   font-weight: 600;
-  padding: 2px 7px;
+  padding: 1px 7px;
   border-radius: 4px;
-  margin-top: 4px;
+  margin-top: 3px;
 }
-
-/* 구분선 */
-.grade-divider {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 1rem 0 .7rem;
-  font-size: 12px;
-  color: var(--ink2);
+.diff-higher {
+  font-size: 11px;
+  color: var(--ink3);
+  margin-top: 2px;
 }
-.grade-divider .line { flex: 1; height: 1px; background: var(--border); }
+.hana-cheaper {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--green);
+  margin-top: 3px;
+}
+.hana-pricier {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--red);
+  margin-top: 3px;
+}
+.hana-same {
+  font-size: 11px;
+  color: var(--ink3);
+  margin-top: 3px;
+}
 
 /* 빈 상태 / 로딩 / 에러 */
-.empty { text-align: center; padding: 4rem 1rem; color: var(--ink2); }
-.empty .icon { font-size: 2rem; opacity: .3; margin-bottom: .8rem; }
-.loading { text-align: center; padding: 3rem; color: var(--ink2); }
-.dots { display: inline-flex; gap: 5px; margin-top: .8rem; }
-.dots span {
-  width: 6px; height: 6px;
-  background: var(--accent);
+.empty {
+  text-align: center;
+  padding: 5rem 1rem 3rem;
+  color: var(--ink3);
+}
+.empty-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  opacity: .4;
+}
+.empty h3 {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink2);
+  margin-bottom: .4rem;
+}
+.empty p { font-size: 13px; line-height: 1.7; }
+
+.loading-wrap { text-align: center; padding: 4rem 1rem; }
+.spinner {
+  width: 28px; height: 28px;
+  border: 2.5px solid var(--border);
+  border-top-color: var(--accent);
   border-radius: 50%;
-  animation: dot 1.2s ease-in-out infinite;
+  animation: spin .7s linear infinite;
+  margin: 0 auto 1rem;
 }
-.dots span:nth-child(2) { animation-delay: .2s; }
-.dots span:nth-child(3) { animation-delay: .4s; }
-@keyframes dot {
-  0%,80%,100% { transform: scale(.5); opacity: .4; }
-  40% { transform: scale(1); opacity: 1; }
-}
-.error-box {
-  background: #fff1f2;
-  border: 1px solid #fecdd3;
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-text { font-size: 13px; color: var(--ink3); }
+
+.error-card {
+  background: var(--red-bg);
+  border: 1px solid var(--red-border);
   border-radius: var(--radius);
   padding: 1rem 1.2rem;
   color: var(--red);
   font-size: 13px;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
+/* 푸터 */
 footer {
-  text-align: center;
-  padding: 1.5rem;
-  font-size: 11px;
-  color: var(--ink3);
   border-top: 1px solid var(--border);
-  letter-spacing: .3px;
+  text-align: center;
+  padding: 1.4rem;
+  font-size: 11.5px;
+  color: var(--ink3);
 }
-.price-input-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: .7rem;
-}
-.price-input-label {
-  font-size: 11px;
-  color: var(--ink2);
-  white-space: nowrap;
-  letter-spacing: .5px;
-}
-.price-input-wrap {
-  display: flex;
-  align-items: center;
-  background: var(--surface);
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius);
-  padding: .45rem .8rem;
-  gap: 4px;
-  transition: border-color .2s;
-}
-.price-input-wrap:focus-within { border-color: var(--accent); }
-.price-prefix { font-size: 13px; color: var(--ink2); }
-#hanatourPrice {
-  border: none;
-  outline: none;
-  font-family: inherit;
-  font-size: 13px;
-  width: 130px;
-  color: var(--ink);
-  background: transparent;
-}
-#hanatourPrice::placeholder { color: var(--ink3); }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="eyebrow">Travel Price Intelligence</div>
-  <h1>여행상품 가격비교</h1>
-  <p>하나투어 상품명을 입력하면 네이버 쇼핑에서 타사 상품을 찾아 비교합니다</p>
-</header>
+<!-- 상단 바 -->
+<nav class="topbar">
+  <div class="topbar-logo">
+    <div class="logo-icon">✈</div>
+    <span class="logo-name">PriceCheck</span>
+  </div>
+  <div class="topbar-sep"></div>
+  <span class="topbar-sub">하나투어 상품 가격비교</span>
+</nav>
 
-<div class="search-wrap">
-  <label class="search-label">하나투어 상품명 입력</label>
-  <div class="search-row">
-    <input
-      id="searchInput"
-      type="text"
-      placeholder="예: [즉시확정][일본] 오사카 유니버셜스튜디오 재팬 입장권 티켓"
-      autocomplete="off"
-    />
-    <button id="searchBtn" onclick="doSearch()">비교하기</button>
+<!-- 히어로 -->
+<div class="hero">
+  <div class="hero-eyebrow">
+    <span>●</span> Naver Shopping 실시간 비교
   </div>
-  <div class="search-examples">
-    예시:
-    <span onclick="fillEx('[즉시확정][일본] 오사카 유니버셜스튜디오 재팬 입장권 티켓 #간사이 유니버셜 스튜디오')">USJ 입장권</span>
-    <span onclick="fillEx('[즉시확정] 도쿄 디즈니랜드 1일 입장권 성인')">디즈니랜드</span>
-    <span onclick="fillEx('오사카 3박4일 패키지 성인 항공포함')">오사카 패키지</span>
-  </div>
-  <div class="price-input-row">
-    <span class="price-input-label">하나투어 판매가 (선택)</span>
-    <div class="price-input-wrap">
-      <span class="price-prefix">₩</span>
-      <input id="hanatourPrice" type="number" min="0" step="100" placeholder="예: 89000" />
+  <h1>타사 가격, 한 번에 확인</h1>
+  <p>하나투어 상품명을 붙여넣으면<br>네이버 쇼핑 동일 상품과 가격을 자동 비교합니다.</p>
+</div>
+
+<!-- 검색 카드 -->
+<div class="search-card">
+  <div class="search-box">
+    <label class="field-label" for="searchInput">하나투어 상품명</label>
+    <div class="search-row">
+      <input
+        id="searchInput"
+        class="search-input"
+        type="text"
+        placeholder="예: [즉시확정][일본] 오사카 유니버셜스튜디오 재팬 입장권 티켓"
+        autocomplete="off"
+      />
+      <button class="btn-primary" id="searchBtn" onclick="doSearch()">비교하기</button>
+    </div>
+    <div class="divider-row"></div>
+    <label class="field-label">하나투어 판매가 <span style="font-weight:400;color:var(--ink3);text-transform:none;letter-spacing:0">(선택 — 입력하면 차액을 표시합니다)</span></label>
+    <div class="price-row">
+      <div class="price-input-wrap">
+        <span class="price-prefix">₩</span>
+        <input id="hanatourPrice" type="number" min="0" step="100" placeholder="예: 89000" />
+      </div>
     </div>
   </div>
 </div>
 
+<!-- 예시 칩 -->
+<div class="chips">
+  <span class="chips-label">예시</span>
+  <span class="chip" onclick="fillEx('[즉시확정][일본] 오사카 유니버셜스튜디오 재팬 입장권 티켓 #간사이 유니버셜 스튜디오')">USJ 입장권</span>
+  <span class="chip" onclick="fillEx('[즉시확정] 도쿄 디즈니랜드 1일 입장권 성인')">디즈니랜드 1일권</span>
+  <span class="chip" onclick="fillEx('오사카 3박4일 패키지 성인 항공포함')">오사카 패키지</span>
+</div>
+
+<!-- 분석 태그 -->
 <div class="analyzed-wrap" id="analyzedWrap" style="display:none"></div>
 
+<!-- 결과 -->
 <div class="results-wrap" id="resultsWrap">
   <div class="empty">
-    <div class="icon">✈️</div>
-    <p>상품명을 입력하고 비교하기를 누르면<br>네이버 쇼핑에서 유사 상품을 찾아 가격을 비교합니다.</p>
+    <div class="empty-icon">✈</div>
+    <h3>상품명을 입력해주세요</h3>
+    <p>상품명을 붙여넣고 비교하기를 누르면<br>네이버 쇼핑에서 동일·유사 상품을 찾아 가격을 비교합니다.</p>
   </div>
 </div>
 
-<footer>네이버 쇼핑 API 기반 · 가격은 실시간 변동될 수 있습니다 · 시즌/대상 미명시 시 유사 상품으로 분류</footer>
+<footer>네이버 쇼핑 API 기반 · 가격은 실시간 변동됩니다 · 시즌/대상 미명시 시 유사 상품으로 분류</footer>
 
 <script>
 function fillEx(text) {
@@ -447,17 +622,17 @@ function fmt(n) { return Number(n).toLocaleString('ko-KR'); }
 function renderAnalyzed(a) {
   const wrap = document.getElementById('analyzedWrap');
   const tags = [];
-  if (a.ticketType) tags.push(`<span class="tag green">🎫 ${a.ticketType}</span>`);
-  if (a.target)     tags.push(`<span class="tag green">👤 ${a.target}</span>`);
-  if (a.season)     tags.push(`<span class="tag yellow">📅 ${a.season}</span>`);
-  if (a.isInstant)  tags.push(`<span class="tag red">⚡ 즉시확정</span>`);
-  a.extras.forEach(e => tags.push(`<span class="tag gray">➕ ${e}</span>`));
-  if (!tags.length)  tags.push(`<span class="tag gray">조건 미명시 — 유사 상품으로 검색</span>`);
+  if (a.ticketType) tags.push(`<span class="pill pill-green">🎫 ${a.ticketType}</span>`);
+  if (a.target)     tags.push(`<span class="pill pill-green">👤 ${a.target}</span>`);
+  if (a.season)     tags.push(`<span class="pill pill-yellow">📅 ${a.season}</span>`);
+  if (a.isInstant)  tags.push(`<span class="pill pill-orange">⚡ 즉시확정</span>`);
+  a.extras.forEach(e => tags.push(`<span class="pill pill-gray">+ ${e}</span>`));
+  if (!tags.length) tags.push(`<span class="pill pill-gray">조건 미명시 — 유사 상품으로 검색</span>`);
 
   wrap.style.display = 'block';
   wrap.innerHTML = `
-    <div class="analyzed-box">
-      <span class="label">추출 조건</span>
+    <div class="analyzed-inner">
+      <span class="analyzed-label">추출 조건</span>
       ${tags.join('')}
     </div>
   `;
@@ -465,57 +640,72 @@ function renderAnalyzed(a) {
 
 function renderResults(data) {
   const wrap = document.getElementById('resultsWrap');
-  const { analyzed, items, stats } = data;
+  const { items, stats } = data;
 
   if (!items || items.length === 0) {
-    wrap.innerHTML = `<div class="empty"><div class="icon">🔍</div><p>검색 결과가 없습니다.<br>다른 키워드로 시도해보세요.</p></div>`;
+    wrap.innerHTML = `<div class="empty"><div class="empty-icon">🔍</div><h3>검색 결과가 없습니다</h3><p>다른 키워드로 시도해보세요.</p></div>`;
     return;
   }
 
-  const sameItems      = items.filter(i => i.similarity.grade === '🟢');
-  const simItems       = items.filter(i => i.similarity.grade === '🟡');
-  const refItems       = items.filter(i => i.similarity.grade === '🔴');
-  const minPrice       = stats.minPrice;
-  const hanatourPrice  = stats.hanatourPrice || null;
+  const sameItems     = items.filter(i => i.similarity.grade === '🟢');
+  const simItems      = items.filter(i => i.similarity.grade === '🟡');
+  const refItems      = items.filter(i => i.similarity.grade === '🔴');
+  const minPrice      = stats.minPrice;
+  const hanatourPrice = stats.hanatourPrice || null;
+
+  function dotClass(grade) {
+    if (grade === '🟢') return 'dot-green';
+    if (grade === '🟡') return 'dot-yellow';
+    return 'dot-red';
+  }
 
   function cardHTML(item, idx) {
+    const isFirst = idx === 0 && item.similarity.grade === '🟢';
     const diff = minPrice ? item.price - minPrice : null;
-    const diffStr = diff === null ? '' : diff === 0
-      ? '<div class="cheapest-tag">최저가</div>'
-      : `<div style="font-size:11px;color:var(--ink2);margin-top:3px;">+${fmt(diff)}원</div>`;
+    let diffHTML = '';
+    if (diff === null) {
+      diffHTML = '';
+    } else if (diff === 0) {
+      diffHTML = `<div class="best-tag">최저가</div>`;
+    } else {
+      diffHTML = `<div class="diff-higher">+${fmt(diff)}원</div>`;
+    }
 
-    let hanatourStr = '';
+    let hanaHTML = '';
     if (hanatourPrice) {
-      const hDiff = item.price - hanatourPrice;
-      const hPct  = Math.round(Math.abs(hDiff) / hanatourPrice * 100);
-      if (hDiff < 0) {
-        hanatourStr = `<div style="font-size:11px;color:var(--green);font-weight:600;margin-top:4px;">↓ 하나투어보다 ${fmt(-hDiff)}원 저렴 (${hPct}%↓)</div>`;
-      } else if (hDiff > 0) {
-        hanatourStr = `<div style="font-size:11px;color:var(--red);font-weight:600;margin-top:4px;">↑ 하나투어보다 ${fmt(hDiff)}원 비쌈 (${hPct}%↑)</div>`;
+      const hd  = item.price - hanatourPrice;
+      const pct = Math.round(Math.abs(hd) / hanatourPrice * 100);
+      if (hd < 0) {
+        hanaHTML = `<div class="hana-cheaper">↓ ${fmt(-hd)}원 저렴 (${pct}%)</div>`;
+      } else if (hd > 0) {
+        hanaHTML = `<div class="hana-pricier">↑ ${fmt(hd)}원 비쌈 (${pct}%)</div>`;
       } else {
-        hanatourStr = `<div style="font-size:11px;color:var(--ink2);margin-top:4px;">= 하나투어와 동일가</div>`;
+        hanaHTML = `<div class="hana-same">= 동일가</div>`;
       }
     }
 
     return `
       <a class="product-card" href="${item.link}" target="_blank" rel="noopener">
-        <div class="rank-num">${idx + 1}</div>
-        <div>
+        <div class="rank ${isFirst ? 'rank-1' : ''}">${idx + 1}</div>
+        <div class="thumb-wrap">
           ${item.image
-            ? `<img class="thumb" src="${item.image}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
+            ? `<img class="thumb" src="${item.image}" alt=""
+                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
             : ''}
           <div class="thumb-placeholder" ${item.image ? 'style="display:none"' : ''}>🎫</div>
         </div>
-        <div class="card-info">
+        <div class="card-body">
           <div class="card-mall">${item.mall || '쇼핑몰'}</div>
           <div class="card-title">${item.title}</div>
-          <div class="sim-badge">${item.similarity.grade} ${item.similarity.label}</div>
+          <div class="sim-row">
+            <div class="sim-dot ${dotClass(item.similarity.grade)}"></div>
+            <span class="sim-text">${item.similarity.label}</span>
+          </div>
         </div>
         <div class="card-price-col">
-          <div class="card-price">₩${fmt(item.price)}</div>
-          <div class="card-price-label">판매가</div>
-          ${diffStr}
-          ${hanatourStr}
+          <div class="price-main">₩${fmt(item.price)}</div>
+          ${diffHTML}
+          ${hanaHTML}
         </div>
       </a>
     `;
@@ -528,37 +718,35 @@ function renderResults(data) {
     const saving    = hanatourPrice - stats.minPrice;
     const savingPct = Math.round(Math.abs(saving) / hanatourPrice * 100);
     html += `
-      <div class="stats-row">
+      <div class="stats-grid">
         <div class="stat-card">
-          <div class="s-label">하나투어 판매가</div>
-          <div class="s-value">₩${fmt(hanatourPrice)}</div>
+          <div class="stat-label">하나투어 판매가</div>
+          <div class="stat-value">₩${fmt(hanatourPrice)}</div>
         </div>
-        <div class="stat-card highlight">
-          <div class="s-label">타사 최저가</div>
-          <div class="s-value">₩${fmt(stats.minPrice)}</div>
+        <div class="stat-card accent-card">
+          <div class="stat-label">타사 최저가</div>
+          <div class="stat-value">₩${fmt(stats.minPrice)}</div>
         </div>
-        <div class="stat-card">
-          <div class="s-label">하나투어 대비 ${saving >= 0 ? '최대 절약' : '추가 비용'}</div>
-          <div class="s-value" style="color:${saving >= 0 ? 'var(--green)' : 'var(--red)'};">
-            ${saving >= 0 ? '-' : '+'}₩${fmt(Math.abs(saving))} (${savingPct}%)
-          </div>
+        <div class="stat-card ${saving >= 0 ? 'green-card' : 'red-card'}">
+          <div class="stat-label">하나투어 대비 ${saving >= 0 ? '최대 절약' : '추가 비용'}</div>
+          <div class="stat-value">${saving >= 0 ? '-' : '+'}₩${fmt(Math.abs(saving))} <span style="font-size:.85rem">(${savingPct}%)</span></div>
         </div>
       </div>
     `;
   } else if (sameItems.length > 0) {
     html += `
-      <div class="stats-row">
-        <div class="stat-card highlight">
-          <div class="s-label">동일상품 최저가</div>
-          <div class="s-value">₩${fmt(stats.minPrice)}</div>
+      <div class="stats-grid">
+        <div class="stat-card accent-card">
+          <div class="stat-label">동일상품 최저가</div>
+          <div class="stat-value">₩${fmt(stats.minPrice)}</div>
         </div>
         <div class="stat-card">
-          <div class="s-label">동일상품 최고가</div>
-          <div class="s-value">₩${fmt(stats.maxPrice)}</div>
+          <div class="stat-label">동일상품 최고가</div>
+          <div class="stat-value">₩${fmt(stats.maxPrice)}</div>
         </div>
         <div class="stat-card">
-          <div class="s-label">가격 차이</div>
-          <div class="s-value">₩${fmt(stats.maxPrice - stats.minPrice)}</div>
+          <div class="stat-label">가격 차이</div>
+          <div class="stat-value">₩${fmt(stats.maxPrice - stats.minPrice)}</div>
         </div>
       </div>
     `;
@@ -566,20 +754,41 @@ function renderResults(data) {
 
   // 동일 상품
   if (sameItems.length) {
-    html += `<div class="grade-divider"><div class="line"></div><span>🟢 동일 상품 ${sameItems.length}건</span><div class="line"></div></div>`;
-    sameItems.forEach((item, i) => { html += cardHTML(item, i); });
+    html += `
+      <div class="grade-section">
+        <div class="grade-header">
+          <span class="grade-badge badge-green">동일 상품 ${sameItems.length}건</span>
+          <div class="grade-line"></div>
+        </div>
+        ${sameItems.map((item, i) => cardHTML(item, i)).join('')}
+      </div>
+    `;
   }
 
   // 유사 상품
   if (simItems.length) {
-    html += `<div class="grade-divider"><div class="line"></div><span>🟡 유사 상품 ${simItems.length}건</span><div class="line"></div></div>`;
-    simItems.forEach((item, i) => { html += cardHTML(item, i); });
+    html += `
+      <div class="grade-section">
+        <div class="grade-header">
+          <span class="grade-badge badge-yellow">유사 상품 ${simItems.length}건</span>
+          <div class="grade-line"></div>
+        </div>
+        ${simItems.map((item, i) => cardHTML(item, i)).join('')}
+      </div>
+    `;
   }
 
   // 참고 상품
   if (refItems.length) {
-    html += `<div class="grade-divider"><div class="line"></div><span>🔴 참고 상품 ${refItems.length}건</span><div class="line"></div></div>`;
-    refItems.forEach((item, i) => { html += cardHTML(item, i); });
+    html += `
+      <div class="grade-section">
+        <div class="grade-header">
+          <span class="grade-badge badge-red">참고 상품 ${refItems.length}건</span>
+          <div class="grade-line"></div>
+        </div>
+        ${refItems.map((item, i) => cardHTML(item, i)).join('')}
+      </div>
+    `;
   }
 
   wrap.innerHTML = html;
@@ -595,9 +804,9 @@ async function doSearch() {
 
   document.getElementById('analyzedWrap').style.display = 'none';
   document.getElementById('resultsWrap').innerHTML = `
-    <div class="loading">
-      <div>상품 분석 및 네이버 쇼핑 검색 중...</div>
-      <div class="dots"><span></span><span></span><span></span></div>
+    <div class="loading-wrap">
+      <div class="spinner"></div>
+      <div class="loading-text">상품 분석 및 네이버 쇼핑 검색 중...</div>
     </div>
   `;
 
@@ -613,8 +822,8 @@ async function doSearch() {
     renderResults(data);
   } catch (err) {
     document.getElementById('resultsWrap').innerHTML = `
-      <div class="error-box">
-        ❌ <strong>오류:</strong> ${err.message}<br><br>
+      <div class="error-card">
+        <strong>오류가 발생했습니다</strong><br>${err.message}<br><br>
         <small>.env 파일의 NAVER_CLIENT_ID / NAVER_CLIENT_SECRET을 확인해주세요.</small>
       </div>
     `;
