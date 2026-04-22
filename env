@@ -1,0 +1,7 @@
+# 네이버 개발자센터에서 발급받은 키를 입력하세요
+# https://developers.naver.com
+
+NAVER_CLIENT_ID=L4o_UrVHhHogBOTpN6u4
+NAVER_CLIENT_SECRET=539EqjXWHC
+
+PORT=3000
