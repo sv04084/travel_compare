@@ -223,32 +223,6 @@ body {
   flex: 1;
 }
 
-/* 예시 칩 */
-.chips {
-  max-width: 680px;
-  margin: 0 auto .5rem;
-  padding: 0 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-.chips-label {
-  font-size: 11px;
-  color: var(--ink3);
-  margin-right: 2px;
-}
-.chip {
-  font-size: 11.5px;
-  color: var(--ink2);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 3px 11px;
-  cursor: pointer;
-  transition: border-color .15s, color .15s;
-}
-.chip:hover { border-color: var(--accent); color: var(--accent); }
 
 /* ── 분석 태그 ── */
 .analyzed-wrap {
@@ -287,6 +261,13 @@ body {
 .pill-orange { background: var(--accent-dim); color: var(--accent); border: 1px solid #FFCDB8; }
 .pill-yellow { background: var(--yellow-bg);  color: var(--yellow); border: 1px solid #FDE68A; }
 .pill-gray   { background: var(--surface2);   color: var(--ink2);   border: 1px solid var(--border); }
+.pill-ai     { background: #EEF2FF; color: #4F46E5; border: 1px solid #C7D2FE; }
+.pill-custom { background: #EFF6FF; color: #2563EB; border: 1px solid #BFDBFE; display: inline-flex; align-items: center; gap: 4px; }
+.pill-custom .rm { cursor: pointer; opacity: 0.5; font-size: 13px; line-height: 1; }
+.pill-custom .rm:hover { opacity: 1; }
+.add-cond-btn { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; border: 1.5px dashed var(--border); color: var(--ink3); font-size: 16px; cursor: pointer; transition: border-color .15s, color .15s; flex-shrink: 0; }
+.add-cond-btn:hover { border-color: var(--accent); color: var(--accent); }
+.cond-input { font-size: 12px; border: 1px solid var(--accent); border-radius: 12px; padding: 2px 10px; outline: none; width: 130px; }
 
 /* ── 결과 래퍼 ── */
 .results-wrap {
@@ -585,13 +566,6 @@ footer {
   </div>
 </div>
 
-<!-- 예시 칩 -->
-<div class="chips">
-  <span class="chips-label">예시</span>
-  <span class="chip" onclick="fillEx('[즉시확정][일본] 오사카 유니버셜스튜디오 재팬 입장권 티켓 #간사이 유니버셜 스튜디오')">USJ 입장권</span>
-  <span class="chip" onclick="fillEx('[즉시확정] 도쿄 디즈니랜드 1일 입장권 성인')">디즈니랜드 1일권</span>
-  <span class="chip" onclick="fillEx('오사카 3박4일 패키지 성인 항공포함')">오사카 패키지</span>
-</div>
 
 <!-- 분석 태그 -->
 <div class="analyzed-wrap" id="analyzedWrap" style="display:none"></div>
@@ -608,10 +582,6 @@ footer {
 <footer>네이버 쇼핑 API 기반 · 가격은 실시간 변동됩니다 · 시즌/대상 미명시 시 유사 상품으로 분류</footer>
 
 <script>
-function fillEx(text) {
-  document.getElementById('searchInput').value = text;
-  doSearch();
-}
 
 document.getElementById('searchInput').addEventListener('keydown', e => {
   if (e.key === 'Enter') doSearch();
@@ -619,7 +589,13 @@ document.getElementById('searchInput').addEventListener('keydown', e => {
 
 function fmt(n) { return Number(n).toLocaleString('ko-KR'); }
 
-function renderAnalyzed(a) {
+let customConditions = [];
+let lastSearchQ = '';
+let lastAnalyzed = null;
+
+function renderConditions() {
+  if (!lastAnalyzed) return;
+  const a = lastAnalyzed;
   const wrap = document.getElementById('analyzedWrap');
   const tags = [];
   if (a.ticketType) tags.push(`<span class="pill pill-green">🎫 ${a.ticketType}</span>`);
@@ -627,15 +603,65 @@ function renderAnalyzed(a) {
   if (a.season)     tags.push(`<span class="pill pill-yellow">📅 ${a.season}</span>`);
   if (a.isInstant)  tags.push(`<span class="pill pill-orange">⚡ 즉시확정</span>`);
   a.extras.forEach(e => tags.push(`<span class="pill pill-gray">+ ${e}</span>`));
+  customConditions.forEach((c, i) => tags.push(
+    `<span class="pill pill-custom">${c}<span class="rm" onclick="removeCondition(${i})">×</span></span>`
+  ));
   if (!tags.length) tags.push(`<span class="pill pill-gray">조건 미명시 — 유사 상품으로 검색</span>`);
+  const aiTag = a.aiUsed ? `<span class="pill pill-ai">🤖 AI 분석</span>` : '';
 
   wrap.style.display = 'block';
   wrap.innerHTML = `
     <div class="analyzed-inner">
       <span class="analyzed-label">추출 조건</span>
       ${tags.join('')}
+      ${aiTag}
+      <span class="add-cond-btn" onclick="showCondInput(this)" title="조건 추가">+</span>
+      <span class="cond-input-wrap" style="display:none;align-items:center;">
+        <input class="cond-input" type="text" placeholder="조건 입력 후 Enter"
+               onkeydown="handleCondInput(event,this)"
+               onblur="setTimeout(()=>hideCondInput(this.parentElement),150)">
+      </span>
     </div>
   `;
+}
+
+function renderAnalyzed(a) {
+  lastAnalyzed = a;
+  renderConditions();
+}
+
+function showCondInput(btn) {
+  const wrap = btn.nextElementSibling;
+  wrap.style.display = 'inline-flex';
+  btn.style.display = 'none';
+  wrap.querySelector('input').focus();
+}
+
+function hideCondInput(wrap) {
+  wrap.style.display = 'none';
+  const btn = wrap.previousElementSibling;
+  if (btn) btn.style.display = '';
+}
+
+function handleCondInput(e, input) {
+  if (e.key === 'Enter') {
+    const v = input.value.trim();
+    if (v && !customConditions.includes(v)) {
+      customConditions.push(v);
+      renderConditions();
+      doSearch();
+    } else {
+      hideCondInput(input.parentElement);
+    }
+  } else if (e.key === 'Escape') {
+    hideCondInput(input.parentElement);
+  }
+}
+
+function removeCondition(i) {
+  customConditions.splice(i, 1);
+  renderConditions();
+  doSearch();
 }
 
 function renderResults(data) {
@@ -798,6 +824,11 @@ async function doSearch() {
   const q = document.getElementById('searchInput').value.trim();
   if (!q) { alert('상품명을 입력해주세요.'); return; }
 
+  if (q !== lastSearchQ) {
+    customConditions = [];
+    lastSearchQ = q;
+  }
+
   const btn = document.getElementById('searchBtn');
   btn.disabled = true;
   btn.textContent = '검색 중...';
@@ -812,7 +843,8 @@ async function doSearch() {
 
   try {
     const hanatourPrice = document.getElementById('hanatourPrice').value.trim();
-    const apiUrl = `/api/compare?q=${encodeURIComponent(q)}${hanatourPrice ? `&hanatourPrice=${hanatourPrice}` : ''}`;
+    const extraParam = customConditions.length ? `&extra=${encodeURIComponent(customConditions.join(','))}` : '';
+    const apiUrl = `/api/compare?q=${encodeURIComponent(q)}${hanatourPrice ? `&hanatourPrice=${hanatourPrice}` : ''}${extraParam}`;
     const res  = await fetch(apiUrl);
     const data = await res.json();
 

@@ -1,0 +1,13 @@
+{
+  "name": "travel-compare",
+  "version": "1.0.0",
+  "description": "하나투어 상품 가격비교 도구",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "@google/generative-ai": "^0.24.1"
+  }
+}
