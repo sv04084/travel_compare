@@ -171,6 +171,7 @@ body {
   color: #fff;
   border: none;
   padding: 0 1.4rem;
+  min-height: 44px;
   border-radius: var(--radius);
   font-size: 13px;
   font-weight: 600;
@@ -517,6 +518,67 @@ footer {
   padding: 1.4rem;
   font-size: 11.5px;
   color: var(--ink3);
+}
+
+/* ── 모바일 반응형 ── */
+@media (max-width: 600px) {
+  /* 탑바 */
+  .topbar { padding: 0 1rem; }
+  .topbar-sep, .topbar-sub { display: none; }
+
+  /* 히어로 */
+  .hero { padding: 1.8rem 1rem 1.2rem; }
+  .hero h1 { font-size: 1.45rem; letter-spacing: -.4px; }
+  .hero p { font-size: 13px; }
+
+  /* 검색 카드 */
+  .search-card { padding: 0 1rem; }
+  .search-row { flex-direction: column; gap: 8px; }
+  /* iOS 줌 방지: 입력 font-size 16px */
+  .search-input { font-size: 16px; padding: .7rem .9rem; }
+  #hanatourPrice { font-size: 16px; }
+  .btn-primary { padding: .75rem; font-size: 14px; }
+  .price-hint { display: none; }
+
+  /* 분석 태그 */
+  .analyzed-wrap { padding: 0 1rem; }
+
+  /* 결과 래퍼 */
+  .results-wrap { padding: 0 1rem; margin-bottom: 3rem; }
+
+  /* 통계: 2열 */
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .stat-value { font-size: 1.05rem; }
+  .stat-label { font-size: 9.5px; }
+
+  /* 상품 카드: rank | thumb | body 3열 + 가격 2행 */
+  .product-card {
+    grid-template-columns: 22px 58px 1fr;
+    grid-template-rows: auto auto;
+    padding: .8rem .9rem;
+    gap: 7px 9px;
+  }
+  .thumb { width: 58px; height: 46px; }
+  .thumb-placeholder { width: 58px; height: 46px; }
+  .card-title { font-size: 12.5px; }
+  .card-price-col {
+    grid-column: 2 / 4;
+    text-align: left;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .price-main { font-size: 1rem; }
+  .price-sub { display: none; }
+
+  /* 빈 상태 */
+  .empty { padding: 3rem 1rem 2rem; }
+}
+
+@media (max-width: 380px) {
+  .stats-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
